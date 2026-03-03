@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ColocationController;
 
 // Page d'accueil
 Route::get('/', function () {
@@ -23,3 +24,15 @@ Route::get('/dashboardAdmin', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware('auth');
+
+
+
+Route::middleware('auth')->group(function () {
+
+    Route::get('/colocations/create', [ColocationController::class, 'create'])
+        ->name('colocations.create');
+
+    Route::post('/colocations', [ColocationController::class, 'store'])
+        ->name('colocations.store');
+
+});

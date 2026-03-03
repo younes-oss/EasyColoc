@@ -220,10 +220,10 @@
             <p style="color: #64748b; margin-bottom: 30px;">Vous n'avez pas encore de colocation. Commencez maintenant !</p>
             
             <div class="actions" style="max-width: 600px; margin: 0 auto;">
-                <div class="action-btn" style="border-color: #00f2ea; box-shadow: 0 2px 8px rgba(0, 242, 234, 0.2);">
+                <a href="{{ route('colocations.create') }}" class="action-btn" style="border-color: #00f2ea; box-shadow: 0 2px 8px rgba(0, 242, 234, 0.2); text-decoration: none;">
                     <div class="action-icon" style="color: #00f2ea;">🏠</div>
                     <div class="action-text">Créer une colocation</div>
-                </div>
+                </a>
                 <div class="action-btn" style="border-color: #a855f7; box-shadow: 0 2px 8px rgba(168, 85, 247, 0.2);">
                     <div class="action-icon" style="color: #a855f7;">🔑</div>
                     <div class="action-text">Rejoindre une colocation</div>
