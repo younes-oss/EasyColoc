@@ -224,10 +224,10 @@
                     <div class="action-icon" style="color: #00f2ea;">🏠</div>
                     <div class="action-text">Créer une colocation</div>
                 </a>
-                <div class="action-btn" style="border-color: #a855f7; box-shadow: 0 2px 8px rgba(168, 85, 247, 0.2);">
+                <a href="{{ route('colocations.join.form') }}" class="action-btn" style="border-color: #a855f7; box-shadow: 0 2px 8px rgba(168, 85, 247, 0.2); text-decoration: none;">
                     <div class="action-icon" style="color: #a855f7;">🔑</div>
                     <div class="action-text">Rejoindre une colocation</div>
-                </div>
+                </a>
             </div>
         @endif
         

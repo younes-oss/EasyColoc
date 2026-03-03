@@ -35,4 +35,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/colocations', [ColocationController::class, 'store'])
         ->name('colocations.store');
 
+    Route::get('/colocations/join', [ColocationController::class, 'joinForm'])
+        ->name('colocations.join.form');
+
+    Route::post('/colocations/join', [ColocationController::class, 'join'])
+        ->name('colocations.join');
+
 });

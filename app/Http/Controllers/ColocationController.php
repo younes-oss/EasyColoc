@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Colocation;
 use Illuminate\Http\Request;
@@ -38,6 +39,7 @@ class ColocationController extends Controller
         $colocation = Colocation::create([
             'name' => $request->name,
             'status' => 'active',
+            'invite_code' => Str::random(8),
         ]);
 
         // Ajouter l'utilisateur comme owner dans le pivot
@@ -47,5 +49,50 @@ class ColocationController extends Controller
         ]);
 
         return redirect('/dashboard')->with('success', 'Colocation créée avec succès.');
+    }
+
+    // Formulaire rejoindre
+    public function joinForm()
+    {
+        return view('colocations.join');
+    }
+
+    // Traiter la demande
+    public function join(Request $request)
+    {
+        $request->validate([
+            'invite_code' => 'required|string'
+        ]);
+
+        $user = auth()->user();
+
+        // Vérifier colocation active
+        $activeColocation = $user->colocations()
+            ->wherePivotNull('left_at')
+            ->first();
+
+        if ($activeColocation) {
+            return back()->withErrors([
+                'invite_code' => 'Vous avez déjà une colocation active.'
+            ]);
+        }
+
+        $colocation = Colocation::where('invite_code', $request->invite_code)
+            ->where('status', 'active')
+            ->first();
+
+        if (!$colocation) {
+            return back()->withErrors([
+                'invite_code' => 'Code invalide.'
+            ]);
+        }
+
+        // Ajouter dans pivot
+        $colocation->users()->attach($user->id, [
+            'role' => 'member',
+            'joined_at' => now(),
+        ]);
+
+        return redirect('/dashboard')->with('success', 'Vous avez rejoint la colocation.');
     }
 }

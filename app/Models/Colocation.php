@@ -38,5 +38,6 @@ class Colocation extends Model
     protected $fillable = [
         'name',
         'status',
+        'invite_code',
     ];
 }
