@@ -53,6 +53,25 @@ class User extends Authenticatable
     {
         return $this->colocations()->wherePivotNull('left_at')->first();
     }
+
+    /**
+     * Vérifier si l'utilisateur est owner de sa colocation active
+     */
+    public function isOwnerOfActiveColocation()
+    {
+        $colocation = $this->getActiveColocation();
+        
+        if (!$colocation) {
+            return false;
+        }
+
+        $membership = $colocation->users()
+            ->where('user_id', $this->id)
+            ->first()
+            ->pivot;
+
+        return $membership->role === 'owner';
+    }
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 

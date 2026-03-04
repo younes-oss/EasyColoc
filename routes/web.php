@@ -23,7 +23,7 @@ Route::get('/dashboardAdmin', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware('auth');
+})->middleware('auth')->name('dashboard');
 
 
 
@@ -41,4 +41,21 @@ Route::middleware('auth')->group(function () {
     Route::post('/colocations/join', [ColocationController::class, 'join'])
         ->name('colocations.join');
 
+});
+
+use App\Http\Controllers\CategoryController;
+
+Route::middleware('auth')->group(function () {
+
+    Route::get('/categories', [CategoryController::class, 'index'])
+        ->name('categories.index');
+
+    Route::get('/categories/create', [CategoryController::class, 'create'])
+        ->name('categories.create');
+
+    Route::post('/categories', [CategoryController::class, 'store'])
+        ->name('categories.store');
+
+    Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])
+        ->name('categories.destroy');
 });

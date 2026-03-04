@@ -15,4 +15,9 @@ class Category extends Model
         {
             return $this->hasMany(Expense::class);
         }
+
+        protected $fillable = [
+            'name',
+            'colocation_id',
+        ];
 }

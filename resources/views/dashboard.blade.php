@@ -213,6 +213,12 @@
                     <div class="action-icon">👥</div>
                     <div class="action-text">Gérer les membres</div>
                 </div>
+                @if(Auth::user()->isOwnerOfActiveColocation())
+                    <a href="{{ route('categories.index') }}" class="action-btn" style="border-color: #10b981; box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2); text-decoration: none;">
+                        <div class="action-icon" style="color: #10b981;">📁</div>
+                        <div class="action-text">Gérer les catégories</div>
+                    </a>
+                @endif
             </div>
         @else
             {{--  Utilisateur sans colocation --}}
